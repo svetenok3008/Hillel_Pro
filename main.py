@@ -1,6 +1,19 @@
 from flask import request, render_template
-
 from flask import Flask
+import sqlite3
+
+class DB_Rent():
+
+    def __init__(self, file_name):
+        self.con = sqlite3.connect(file_name)
+        self.cur = self.con.cursor()
+
+    def __enter__(self):
+        return self.cur
+
+    def __exit__(self, type, value, traceback):
+        self.con.commit()
+        self.con.close()
 
 app = Flask(__name__)
 
@@ -27,10 +40,22 @@ def logout():
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
-    if request.method == 'POST':
-        return 'POST -> /register'
     if request.method == 'GET':
-        return 'GET -> /register'
+        return render_template("register.html")
+    if request.method == 'POST':
+        with DB_Rent('identifier.sqlite') as db_cur:
+            form_data = request.form
+            db_cur.execute("""INSERT INTO user (login, password, full_name, ipn, passport, contacts, photo) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)""",
+            (
+                form_data['login'], form_data['password'], form_data['full_name'], form_data['ipn'],
+                form_data['passport'], form_data['contacts'], form_data['photo'],
+
+                       )
+                           )
+
+        return 'Hello!!!!!'
+
 
 @app.route("/profile/user", methods=['GET', 'PUT', 'PATCH', 'DELETE'])
 def profile_user():
@@ -107,10 +132,10 @@ def search():
     if request.method == 'GET':
         return 'GET -> /search'
 
-@app.route("/complain", methods=['POST'])
-def complain():
-    if request.method == 'POST':
-        return 'POST -> /complain'
+# @app.route("/complain", methods=['POST'])
+# def complain():
+#     if request.method == 'POST':
+#         return 'POST -> /complain'
 
 @app.route("/compare", methods=['GET', 'PUT', 'PATCH'])
 def compare():
