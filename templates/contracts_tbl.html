@@ -8,30 +8,33 @@
 <body>
 
   <div class="nav-scroller bg-body shadow-sm">
-  <nav class="nav" aria-label="Secondary navigation">
-    <a class="nav-link active" aria-current="page" href="/items">Dashboard</a>
-    <a class="nav-link" href="/items">
-      Friends
-      <span class="badge text-bg-light rounded-pill align-text-bottom">27</span>
-    </a>
-    <a class="nav-link" href="/items">Всі речі</a>
-    <a class="nav-link" href="/contracts">Контракти</a>
+    <nav class="nav" aria-label="Secondary navigation">
+    <a class="nav-link" href="/items">Всі пропозиції</a>
+    <a class="nav-link" href="/profile">Мої дані</a>
+    <a class="nav-link" href="/profile/my_items">Мої речі</a>
+    <a class="nav-link" href="/profile/my_contracts">Мої Угоди</a>
+    <a class="nav-link" href="/profile/add_item">Додати об'яву</a>
     <a class="nav-link" href="/login">Увійти</a>
     <a class="nav-link" href="/logout">Вийти</a>
-    <a class="nav-link" href="/complain">Link</a>
-    <a class="nav-link" href="/items">Link</a>
-    <a class="nav-link" href="/items">Link</a>
-  </nav>
+    </nav>
   </div>
 
-  <table>
+  <table style="width: 80%;">
+    <colgroup>
+      <col style="width: 10%;">
+      <col style="width: 10%;">
+      <col style="width: 10%;">
+      <col style="width: 20%;">
+      <col style="width: 20%;">
+      <col style="width: 30%;">
+    </colgroup>
   <tr>
-    <th>Номер контракту</th>
-    <th>Діє з дати</th>
-    <th>Дата закінчення</th>
-    <th>Орендодавець</th>
-    <th>Орендар</th>
-    <th>Предмет договору</th>
+    <th style="border-bottom: 2px solid blue;">Номер <br> контракту</th>
+    <th style="border-bottom: 2px solid blue;">Діє з дати</th>
+    <th style="border-bottom: 2px solid blue;">Дата <br> закінчення</th>
+    <th style="border-bottom: 2px solid blue;">Орендодавець</th>
+    <th style="border-bottom: 2px solid blue;">Орендар</th>
+    <th style="border-bottom: 2px solid blue;">Предмет договору</th>
   </tr>
    {% for one_contract in contracts %}
   <tr>
