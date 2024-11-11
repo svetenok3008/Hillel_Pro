@@ -41,8 +41,8 @@ def login_required(func):
     return wrapper
 
 @app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
+def start_app():
+    return redirect('/login')
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -97,7 +97,7 @@ def register():
 def profile_user():
     if request.method == 'GET':
         with DB_Rent('identifier.sqlite') as db_cur:
-            db_cur.execute(f'''SELECT * FROM user WHERE id = {session["user_id"]} ''')
+            db_cur.execute(f'''SELECT * FROM user WHERE id = {session["user_id"]}''')
             user_data = db_cur.fetchall()
             print(user_data)
         return render_template('user.html', user_data=user_data)
