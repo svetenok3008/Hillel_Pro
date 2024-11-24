@@ -1,0 +1,352 @@
+{% extends 'base.html' %}
+
+{% block links %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/datepicker.min.js"></script>
+{% endblock %}
+
+{% block content %}
+{% if "update" in request.path %}
+{% set action = url_for('clients.update', client_id=client_id) %}
+{% set form_name = "Редагувати дані клієнта" %}
+{% else %}
+{% set action = url_for('clients.add') %}
+{% set form_name = "Створити клієнта" %}
+{% endif %}
+<div class="w-full md:w-1/2 mx-auto pt-6">
+  <div class="flex justify-center">
+    <div class="w-full lg:max-w-xl p-6 space-y-8 sm:p-8 bg-white shadow-xl">
+      <form id="users_profile_form" class="mt-2 space-y-6 from" method="post" action={{ action }}>
+        {{ form.hidden_tag() }}
+        <p class="text-3xl font-semibold text-primary">{{ form_name }}</p>
+        {% if flash_message %}
+        <div class="flash-message flex justify-center">
+          <div class="py-1 px-2 border border-green-500 text-green-500">{{ flash_message }}</div>
+        </div>
+        {% endif %}
+        <div class="short_input_container short_input_container_left">
+          {{form.edrpou.label(class='block mb-2 text-sm font-medium text-gray-900')}}
+          {{form.edrpou(
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
+          focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          )
+          }}
+
+          {% for error in form.errors.edrpou %}
+          <small class="text-danger">{{error}}</small>
+          {% endfor %}
+        </div>
+
+
+        <div class="short_input_container short_input_container_left">
+          {{form.name.label(class='block mb-2 text-sm font-medium text-gray-900')}}
+          {{form.name(
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
+          focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          )
+          }}
+
+          {% for error in form.errors.name %}
+          <small class="text-danger">{{error}}</small>
+          {% endfor %}
+        </div>
+
+        <div class="short_input_container short_input_container_left">
+          {{form.company_name.label(class='block mb-2 text-sm font-medium text-gray-900')}}
+          {{form.company_name(
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
+          focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          )
+          }}
+
+          {% for error in form.errors.company_name %}
+          <small class="text-danger">{{error}}</small>
+          {% endfor %}
+        </div>
+
+        <div class="short_input_container short_input_container_left">
+          {{form.manager_name.label(class='block mb-2 text-sm font-medium text-gray-900')}}
+          {{form.manager_name(
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
+          focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          )
+          }}
+
+          {% for error in form.errors.manager_name %}
+          <small class="text-danger">{{error}}</small>
+          {% endfor %}
+        </div>
+
+        <div class="short_input_container short_input_container_left">
+          {{form.email.label(class='block mb-2 text-sm font-medium text-gray-900')}}
+          {{form.email(
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
+          focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          )
+          }}
+
+          {% for error in form.errors.email %}
+          <small class="text-danger">{{error}}</small>
+          {% endfor %}
+        </div>
+
+        <div class="short_input_container short_input_container_left">
+          {{form.phone.label(class='block mb-2 text-sm font-medium text-gray-900')}}
+          {{form.phone(
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
+          focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          )
+          }}
+
+          {% for error in form.errors.phone %}
+          <small class="text-danger">{{error}}</small>
+          {% endfor %}
+        </div>
+
+        <div class="short_input_container short_input_container_left">
+          {{form.token.label(class='block mb-2 text-sm font-medium text-gray-900')}}
+          {{form.token(
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
+          focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5", autocomplete="off"
+          )
+          }}
+
+          {% for error in form.errors.token %}
+          <small class="text-danger">{{error}}</small>
+          {% endfor %}
+        </div>
+
+        <div class="relative w-full search_section">
+          {{form.token_expiration.label(class='block mb-2 text-sm font-medium text-gray-900')}}
+          <div class="absolute bottom-2.5 left-0 flex items-center pl-3 pointer-events-none">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 -4 32 32" stroke-width="2"
+              stroke="currentColor" class="w-6 h-6 text-primary">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
+            </svg>
+          </div>
+
+          <div class="flex justify-center">
+            <input id="datepicker-format" datepicker datepicker-format="yyyy-mm-dd" type="text" name="token_expiration"
+              autocomplete="off" {% if form.token_expiration.data %} value="{{ form.token_expiration.data }}" {% endif
+              %} required
+              class="w-full block p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 bg-gray-50 2xl:w-40 focus:ring-secondary focus:border-secondary cursor-pointer"
+              placeholder="Дійсний до">
+          </div>
+        </div>
+		
+	<!--Founds fields-->
+	    <div class="relative w-full search_section">
+			<h2> Заповнюється для клієнтів - Фондів </h2> <br>
+			<div class="short_input_container short_input_container_left">
+			  {{form.edrisi.label(class='block mb-2 text-sm font-medium text-gray-900')}}
+			  {{form.edrisi(
+			  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
+			  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+			  )
+			  }}
+
+			  {% for error in form.errors.edrisi %}
+			  <small class="text-danger">{{error}}</small>
+			  {% endfor %}
+			</div>
+			
+			<div class="short_input_container short_input_container_left">
+			  {{form.name_long_en.label(class='block mb-2 text-sm font-medium text-gray-900')}}
+			  {{form.name_long_en(
+			  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
+			  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+			  )
+			  }}
+
+			  {% for error in form.errors.name_long_en %}
+			  <small class="text-danger">{{error}}</small>
+			  {% endfor %}
+			</div>
+			
+			<div class="relative w-full search_section">
+			  {{form.date_reglmnt.label(class='block mb-2 text-sm font-medium text-gray-900')}}
+			  <div class="absolute bottom-2.5 left-0 flex items-center pl-3 pointer-events-none">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 -4 32 32" stroke-width="2"
+				  stroke="currentColor" class="w-6 h-6 text-primary">
+				  <path stroke-linecap="round" stroke-linejoin="round"
+					d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
+				</svg>
+			  </div>
+			  <div class="flex justify-center">
+				<input id="datepicker-format" datepicker datepicker-format="yyyy-mm-dd" type="text" name="date_reglmnt"
+				  autocomplete="off" {% if form.date_reglmnt.data %} value="{{ form.date_reglmnt.data }}" {% endif
+				  %} required
+				  class="w-full block p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 bg-gray-50 2xl:w-40 focus:ring-secondary focus:border-secondary cursor-pointer"
+				  placeholder="Дата прийняття регламенту ІСІ">
+			  </div>
+			</div>				
+			
+			<div class="relative w-full search_section">
+			  {{form.entity_term.label(class='block mb-2 text-sm font-medium text-gray-900')}}
+			  <div class="absolute bottom-2.5 left-0 flex items-center pl-3 pointer-events-none">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 -4 32 32" stroke-width="2"
+				  stroke="currentColor" class="w-6 h-6 text-primary">
+				  <path stroke-linecap="round" stroke-linejoin="round"
+					d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
+				</svg>
+			  </div>
+			  <div class="flex justify-center">
+				<input id="datepicker-format" datepicker datepicker-format="yyyy-mm-dd" type="text" name="entity_term"
+				  autocomplete="off" {% if form.entity_term.data %} value="{{ form.entity_term.data }}" {% endif
+				  %} required
+				  class="w-full block p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 bg-gray-50 2xl:w-40 focus:ring-secondary focus:border-secondary cursor-pointer"
+				  placeholder="Фонд діє до">
+			  </div>
+			</div>
+
+			<div class="short_input_container short_input_container_left">
+			  {{form.agrmnt_am_num.label(class='block mb-2 text-sm font-medium text-gray-900')}}
+			  {{form.agrmnt_am_num(
+			  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
+			  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+			  )
+			  }}
+
+			  {% for error in form.errors.agrmnt_am_num %}
+			  <small class="text-danger">{{error}}</small>
+			  {% endfor %}
+			</div>
+
+			<div class="relative w-full search_section">
+			  {{form.agrmnt_am_date.label(class='block mb-2 text-sm font-medium text-gray-900')}}
+			  <div class="absolute bottom-2.5 left-0 flex items-center pl-3 pointer-events-none">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 -4 32 32" stroke-width="2"
+				  stroke="currentColor" class="w-6 h-6 text-primary">
+				  <path stroke-linecap="round" stroke-linejoin="round"
+					d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
+				</svg>
+			  </div>
+			  <div class="flex justify-center">
+				<input id="datepicker-format" datepicker datepicker-format="yyyy-mm-dd" type="text" name="agrmnt_am_date"
+				  autocomplete="off" {% if form.agrmnt_am_date.data %} value="{{ form.agrmnt_am_date.data }}" {% endif
+				  %} required
+				  class="w-full block p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 bg-gray-50 2xl:w-40 focus:ring-secondary focus:border-secondary cursor-pointer"
+				  placeholder="Дата договору">
+			  </div>
+			</div>		
+
+			<div class="relative w-full search_section">
+			  {{form.agrmnt_am_end.label(class='block mb-2 text-sm font-medium text-gray-900')}}
+			  <div class="absolute bottom-2.5 left-0 flex items-center pl-3 pointer-events-none">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 -4 32 32" stroke-width="2"
+				  stroke="currentColor" class="w-6 h-6 text-primary">
+				  <path stroke-linecap="round" stroke-linejoin="round"
+					d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
+				</svg>
+			  </div>
+			  <div class="flex justify-center">
+				<input id="datepicker-format" datepicker datepicker-format="yyyy-mm-dd" type="text" name="agrmnt_am_end"
+				  autocomplete="off" {% if form.agrmnt_am_end.data %} value="{{ form.agrmnt_am_end.data }}" {% endif
+				  %} required
+				  class="w-full block p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 bg-gray-50 2xl:w-40 focus:ring-secondary focus:border-secondary cursor-pointer"
+				  placeholder="Дата закінчення договору">
+			  </div>
+			</div>	
+
+			<div class="short_input_container short_input_container_left">
+			  {{form.issue_scrty_numbr.label(class='block mb-2 text-sm font-medium text-gray-900')}}
+			  {{form.issue_scrty_numbr(
+			  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
+			  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+			  )
+			  }}
+
+			  {% for error in form.errors.issue_scrty_numbr %}
+			  <small class="text-danger">{{error}}</small>
+			  {% endfor %}
+			</div>
+
+			<div class="relative w-full search_section">
+			  {{form.issue_scrty_date.label(class='block mb-2 text-sm font-medium text-gray-900')}}
+			  <div class="absolute bottom-2.5 left-0 flex items-center pl-3 pointer-events-none">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 -4 32 32" stroke-width="2"
+				  stroke="currentColor" class="w-6 h-6 text-primary">
+				  <path stroke-linecap="round" stroke-linejoin="round"
+					d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
+				</svg>
+			  </div>
+			  <div class="flex justify-center">
+				<input id="datepicker-format" datepicker datepicker-format="yyyy-mm-dd" type="text" name="issue_scrty_date"
+				  autocomplete="off" {% if form.issue_scrty_date.data %} value="{{ form.issue_scrty_date.data }}" {% endif
+				  %} required
+				  class="w-full block p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 bg-gray-50 2xl:w-40 focus:ring-secondary focus:border-secondary cursor-pointer"
+				  placeholder="Дата випуску ЦП">
+			  </div>
+			</div>	
+
+			<div class="short_input_container short_input_container_left">
+			  {{form.isin.label(class='block mb-2 text-sm font-medium text-gray-900')}}
+			  {{form.isin(
+			  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
+			  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+			  )
+			  }}
+
+			  {% for error in form.errors.isin %}
+			  <small class="text-danger">{{error}}</small>
+			  {% endfor %}
+			</div>	
+
+			<div class="short_input_container short_input_container_left">
+			  {{form.dnmntn_amt.label(class='block mb-2 text-sm font-medium text-gray-900')}}
+			  {{form.dnmntn_amt(
+			  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
+			  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+			  )
+			  }}
+
+			  {% for error in form.errors.dnmntn_amt %}
+			  <small class="text-danger">{{error}}</small>
+			  {% endfor %}
+			</div>		
+
+			<div class="short_input_container short_input_container_left">
+			  {{form.issue_qntty_strt.label(class='block mb-2 text-sm font-medium text-gray-900')}}
+			  {{form.issue_qntty_strt(
+			  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
+			  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+			  )
+			  }}
+
+			  {% for error in form.errors.issue_qntty_strt %}
+			  <small class="text-danger">{{error}}</small>
+			  {% endfor %}
+			</div>				
+			
+		</div>	
+	<!--Founds fields-->		
+	
+		
+
+        <div class="flex justify-center">
+          <button type="submit"
+            class="w-full px-5 py-3 text-base font-medium text-center text-white bg-gradient-to-r from-primary to-secondary focus:ring-4 focus:ring-blue-300 sm:w-auto">
+            Зберегти
+          </button>
+
+          {% if "update" in request.path %}
+          <input type="hidden" name="id" value="{{client_id}}">
+          <button type="submit" name="deactivate" value="true" onclick="return confirm('Точно?');"
+            class="w-full ml-2 px-5 py-3 text-base font-medium text-center text-white bg-gradient-to-r from-red-400 to-red-800 focus:ring-4 focus:ring-blue-300 sm:w-auto">
+            Видалити
+          </button>
+          {% endif %}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
